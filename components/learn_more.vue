@@ -36,12 +36,12 @@
             <h2 class="mb-3">{{ $t('learnmore.contribute') }}</h2>
             <ul>
               <li>
-                <a :href="links.shopMissing" target="_blank" rel="noopener">
+                <a :href="i18nLinks.shopMissing" target="_blank" rel="noopener">
                   {{ $t('learnmore.missing_shop') }}
                 </a>
               </li>
               <li>
-                <a :href="links.townhalls" target="_blank" rel="noopener">
+                <a :href="i18nLinks.townhalls" target="_blank" rel="noopener">
                   {{ $t('learnmore.townhalls', { brand }) }}
                 </a>
               </li>
@@ -61,22 +61,22 @@
             <h2 class="mb-3">{{ $t('learnmore.about') }}</h2>
             <ul>
               <li>
-                <a :href="links.blog" target="_blank" rel="noopener">
+                <a :href="i18nLinks.blog" target="_blank" rel="noopener">
                   {{ $t('learnmore.blog') }}
                 </a>
               </li>
               <li>
-                <a :href="links.about" target="_blank" rel="noopener">
+                <a :href="i18nLinks.about" target="_blank" rel="noopener">
                   {{ $t('learnmore.about') }}
                 </a>
               </li>
               <li>
-                <a :href="links.press" target="_blank" rel="noopener">
+                <a :href="i18nLinks.press" target="_blank" rel="noopener">
                   {{ $t('learnmore.press') }}
                 </a>
               </li>
               <li>
-                <a :href="links.disclaimer" target="_blank" rel="noopener">
+                <a :href="i18nLinks.disclaimer" target="_blank" rel="noopener">
                   {{ $t('learnmore.disclaimer') }}
                 </a>
               </li>

@@ -19,7 +19,7 @@ export default {
   computed: {
     ...mapState(['country']),
 
-    links() {
+    i18nLinks() {
       const links = config[this.$i18n.locale] || config.en;
       return {
         ...config.defaults,
@@ -28,7 +28,7 @@ export default {
     },
 
     countryConfig() {
-      return config[this.country.toLowerCase()] || this.links;
+      return config[this.country.toLowerCase()] || this.i18nLinks;
     },
 
     logo() {
@@ -39,7 +39,7 @@ export default {
         segueaberto,
         esobert,
         ollaanauki
-      }[this.links.brand];
+      }[this.i18nLinks.brand];
     },
 
     logoMobile() {
@@ -50,7 +50,7 @@ export default {
         segueaberto: segueabertoMobile,
         esobert: esobertMobile,
         ollaanauki: ollaanaukiMobile
-      }[this.links.brand];
+      }[this.i18nLinks.brand];
     },
 
     logoOg() {
@@ -61,11 +61,11 @@ export default {
         segueaberto,
         esobert,
         ollaanauki
-      }[this.links.brand];
+      }[this.i18nLinks.brand];
     },
 
     brand() {
-      return this.links.brand_text;
+      return this.i18nLinks.brand_text;
     }
   }
 }

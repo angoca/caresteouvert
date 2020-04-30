@@ -30,7 +30,7 @@
       <v-divider></v-divider>
       <main-menu-list-item
         :title="$t('missing_shop')"
-        :href="links.shopMissing"
+        :href="i18nLinks.shopMissing"
         icon="plus"
       />
       <learn-more />
