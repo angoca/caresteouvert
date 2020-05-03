@@ -26,7 +26,9 @@
       type="success"
       tile
       class="mb-0"
-    ><span class="text-pre">{{ $t('details.signal_done') }}</span></v-alert>
+    >
+      <span class="text-pre">{{ $t('details.signal_done') }}</span>
+    </v-alert>
     <div v-if="contribute">
       <contribute-form
         :place="place"

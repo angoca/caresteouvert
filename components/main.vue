@@ -23,7 +23,10 @@
           :featuresAndLocation="featuresAndLocation"
           :map-bounds="mapBounds"
         />
-        <main-menu v-else>
+        <main-menu
+          v-else
+          :style="{ width: '300px' }"
+        >
           <filter-list v-model="filter" />
         </main-menu>
       </v-navigation-drawer>
@@ -91,7 +94,7 @@ import { mapGetters } from 'vuex';
 import debounce from 'lodash.debounce';
 import config from '../config.json';
 import { getCookie, setCookie } from '../lib/cookie';
-import { encode, decode, encodePosition, decodePosition, encodeFilter, decodeFilter } from '../lib/url';
+import { encode, decode, encodePosition, decodePosition, encodeFilter, decodeFilter, findBrand } from '../lib/url';
 import isMobile from './mixins/is_mobile';
 import AppsSheet from './apps_sheet';
 import MainMenu from './main_menu';
@@ -141,6 +144,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit('setBrandId', findBrand(process.client ? window.location.host : (req.headers['x-forwarded-host'] || req.headers.host)).brand);
     this.sidebar = !this.isMobile;
 
     const { filter: filterPart, location } = decode(this.featuresAndLocation);

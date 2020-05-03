@@ -8,12 +8,13 @@
   >
     <v-slide-x-reverse-transition>
       <v-card
-        v-if="place"
+        :loading="!place"
         tile
         min-height="100%"
         class="d-flex flex-column"
       >
         <v-toolbar
+          v-if="place"
           tile
           dark
           class="flex-grow-0"
@@ -39,112 +40,111 @@
           </v-btn>
         </v-toolbar>
 
-        <detail-state
-          ref="state"
-          :place="place"
-          :status="status"
-          :last-update="lastUpdate"
-        />
-
-        <v-alert
-          v-if="infos"
-          :icon="false"
-          type="info"
-          tile
-          class="mb-0"
-        >
-          <p
-            v-html="infos"
-            v-linkified:options="{ className: 'alert-link', attributes: { rel: 'noopener' } }"
-            class="mb-0 overflowwrap-anywhere"
-          />
-        </v-alert>
-
-        <v-list>
-          <detail-link
-            v-if="hasVending"
-            :title="$t(`details.vending.${place.properties.tags.vending}`)"
-            icon="osm-vending_machine"
-          />
-          <template v-if="contact('phone')">
-            <detail-link
-              v-for="phone in contact('phone').split(';')"
-              :key="phone"
-              :href="`tel:${phone}`"
-              :title="phone"
-              icon="osm-phone"
-            />
-          </template>
-          <template v-if="contact('mobile')">
-            <detail-link
-              v-for="mobile in contact('mobile').split(';')"
-              :key="mobile"
-              :href="`tel:${mobile}`"
-              :title="mobile"
-              icon="osm-mobile_phone"
-            />
-          </template>
-          <detail-link
-            v-if="contact('fax')"
-            :title="contact('fax')"
-            icon="osm-fax"
+        <div v-if="place">
+          <detail-state
+            ref="state"
+            :place="place"
+            :status="status"
+            :last-update="lastUpdate"
           />
 
-          <detail-link
-            v-if="contact('email')"
-            :href="`mailto:${contact('email')}`"
-            :title="contact('email')"
-            icon="osm-mail"
+          <detail-hygiene
+            v-if="status != 'closed'"
+            :place="place"
           />
 
-          <detail-opening-hours
-            v-if="place.properties.opening_hours && place.properties.opening_hours !== 'open'"
-            :value="place.properties.opening_hours"
-          />
-          <detail-link
-            v-else-if="place.properties.brand_hours"
-            :href="place.properties.brand_hours"
-            :title="$t('details.containment_brand_hours')"
-            external
-            icon="osm-chevron_right"
-          />
-          <template
-            v-else-if="place.properties.tags.opening_hours"
+          <v-list
+            v-if="infos.length > 0 || hasVending"
+            class="py-0"
           >
-            <v-alert
-              dense
-              tile
-              :icon="false"
-              border="left"
-              colored-border
-              type="warning"
-              class="mb-0 pa-0"
-            >
-              <div class="ml-3">{{ $t('details.containment_opening_hours') }}</div>
-              <detail-opening-hours
-                v-if="place.properties.tags.opening_hours"
-                :value="place.properties.tags.opening_hours"
-              />
-            </v-alert>
+            <v-list-item v-if="infos.length > 0">
+              <v-list-item-icon><v-icon>osm-info</v-icon></v-list-item-icon>
+              <v-list-item-content>
+                <p
+                  v-for="info in infos"
+                  :key="info"
+                  v-html="info"
+                  v-linkified:options="{ className: 'alert-link', attributes: { rel: 'noopener' } }"
+                  class="mb-3 overflowwrap-anywhere"
+                />
+              </v-list-item-content>
+            </v-list-item>
+
+            <detail-link
+              v-if="hasVending"
+              :title="$t(`details.vending.${place.properties.tags.vending}`)"
+              icon="osm-vending_machine"
+            />
+          </v-list>
+
+          <template v-if="services.length > 0">
+            <v-subheader>{{ $t('details.services') }}</v-subheader>
+             <v-list class="py-0">
+               <detail-link
+                 v-for="{ service, value } in services"
+                 :key="service"
+                 :title="value"
+                 :icon="`osm-${service}`"
+               />
+             </v-list-item>
+           </v-list>
+         </template>
+
+         <template v-if="hasOpeningInfos">
+           <v-subheader v-if="hasSpecificOpeningHours || place.properties.brand_hours">{{ $t('details.lockdown_opening_hours') }}</v-subheader>
+           <v-subheader v-else>{{ $t('details.normal_opening_hours') }}</v-subheader>
+           <v-list class="py-0">
+             <detail-opening-hours
+               v-if="hasSpecificOpeningHours"
+               :value="place.properties.opening_hours"
+             />
+             <detail-link
+               v-else-if="place.properties.brand_hours"
+               :href="place.properties.brand_hours"
+               :title="$t('details.lockdown_brand_hours')"
+               external
+               icon="osm-chevron_right"
+             />
+             <template v-else-if="place.properties.tags.opening_hours">
+               <v-alert
+                 dense
+                 tile
+                 :icon="false"
+                 border="left"
+                 colored-border
+                 type="warning"
+                 class="mb-0 pa-0"
+               >
+                 <detail-opening-hours :value="place.properties.tags.opening_hours" />
+               </v-alert>
+             </template>
+           </v-list>
+         </template>
+
+         <template v-if="hasContactInfos">
+           <v-subheader>{{ $t('details.contact') }}</v-subheader>
+           <v-list class="py-0">
+             <template v-for="c in contactsDisplayed">
+                <template v-if="contact(c)">
+                  <detail-link
+                    v-for="value in contact(c)"
+                    :key="value.text"
+                    :href="value.href"
+                    :title="value.text"
+                    :icon="contacts[c]"
+                    :external="value.href.startsWith('http')"
+                  />
+                </template>
+              </template>
+            </v-list>
           </template>
 
-          <detail-link
-            v-if="contact('facebook')"
-            :href="contact('facebook')"
-            :title="contact('facebook')"
-            external
-            icon="osm-fcbk"
+          <update-detail-dialog
+            v-if="country === 'FR'"
+            :place="place"
           />
+        </div>
 
-          <detail-link
-            v-if="contact('website')"
-            :href="contact('website')"
-            :title="contact('website')"
-            external
-            icon="osm-link"
-          />
-
-        </v-list>
         <v-spacer></v-spacer>
         <v-footer tile>
           <osm-link :id="id" />
@@ -155,23 +155,38 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { poiFeature, osmUrl } from '../../config.json';
-import isMobile from '../mixins/is_mobile';
-import placeMixin from '../mixins/place';
-import DetailOpeningHours from './detail_opening_hours';
-import DetailState from './detail_state';
-import DetailLink from './detail_link';
-import OsmLink from '../osm_link';
 import { encodePosition } from '../../lib/url';
 import parseId from '../../lib/parse_id';
 import { getRecentContribution } from '../../lib/recent_contributions';
+import isMobile from '../mixins/is_mobile';
+import placeMixin from '../mixins/place';
+import DetailHygiene from './detail_hygiene';
+import DetailLink from './detail_link';
+import DetailOpeningHours from './detail_opening_hours';
+import DetailState from './detail_state';
+import OsmLink from '../osm_link';
+import UpdateDetailDialog from '../update_detail_dialog';
+
+const CONTACTS = {
+  'phone:covid19': 'osm-phone_covid',
+  phone: 'osm-phone',
+  mobile: 'osm-mobile_phone',
+  fax: 'osm-fax',
+  email: 'osm-mail',
+  facebook: 'osm-fcbk',
+  website: 'osm-link'
+};
 
 export default {
   components: {
+    DetailHygiene,
     DetailLink,
     DetailOpeningHours,
     DetailState,
-    OsmLink
+    OsmLink,
+    UpdateDetailDialog
   },
 
   mixins: [placeMixin, isMobile],
@@ -233,33 +248,64 @@ export default {
   },
 
   computed: {
+    ...mapState(['country']),
+
     hasVending() {
       return this.$te(`details.vending.${this.place.properties.tags.vending}`);
     },
 
-    infos() {
-      const infos = [];
+    hasSpecificOpeningHours() {
+      return !!(this.place.properties.opening_hours && this.place.properties.opening_hours !== 'open');
+    },
+
+    hasOpeningInfos() {
+      return !!(this.hasSpecificOpeningHours
+               || this.place.properties.tags.opening_hours
+               || this.place.properties.brand_hours);
+    },
+
+    hasContactInfos() {
+      return !!this.contactsDisplayed.find((c) => this.contact(c));
+    },
+
+    contacts() {
+      return CONTACTS;
+    },
+
+    contactsDisplayed() {
+      return Object.keys(CONTACTS);
+    },
+
+    services() {
       const isOpen = ['open', 'open_adapted'].includes(this.place.properties.status);
       const isOpenOrPartial = ['open', 'open_adapted', 'partial'].includes(this.place.properties.status);
 
-      // Access
-      if (this.place.properties.tags['access:covid19'] === 'no') {
-        infos.push(this.$t('details.not_accessible'));
-      }
-
+      const services = [];
       const addInfosDependingOfTagAndStatus = (tagName) => {
         const tagCovid19 = this.place.properties.tags[`${tagName}:covid19`];
         const tag = this.place.properties.tags[tagName];
         if (isOpenOrPartial && tagCovid19 && this.$te(`details.${tagName}.${tagCovid19}`)) {
-          infos.push(this.$t(`details.${tagName}.${tagCovid19}`));
+          services.push({ service: tagName, value: this.$t(`details.${tagName}.${tagCovid19}`) });
         } else if (isOpen && tag && this.$te(`details.${tagName}.${tag}`) && !tagCovid19) {
-          infos.push(this.$t(`details.${tagName}.${tag}`));
+          services.push({ service: tagName, value: this.$t(`details.${tagName}.${tag}`) });
         }
       };
 
       addInfosDependingOfTagAndStatus('takeaway');
       addInfosDependingOfTagAndStatus('delivery');
       addInfosDependingOfTagAndStatus('drive_through');
+      addInfosDependingOfTagAndStatus('wheelchair');
+
+      return services;
+    },
+
+    infos() {
+      const infos = [];
+
+      // Access
+      if (this.place.properties.tags['access:covid19'] === 'no') {
+        infos.push(this.$t('details.not_accessible'));
+      }
 
       // Maximal capacity
       if (!isNaN(parseInt(this.place.properties.tags['capacity:covid19']))) {
@@ -271,7 +317,7 @@ export default {
         infos.push(this.place.properties.brand_infos);
       }
 
-      return infos.join(" | ");
+      return infos;
     }
   },
 
@@ -298,17 +344,18 @@ export default {
         fetch(`${poiFeature}/${this.id}.json?precision=7`)
         .then(data => data.json())
         .then((place) => {
-          if(contrib) {
+          if(contrib && contrib[1] !== 'same') {
             place.properties.status = contrib[1];
           }
           this.place = place;
           this.$store.commit('setPlace', place);
-        }).catch(() => {
+        })
+        .catch(() => {
           this.$nuxt.context.redirect(`/${this.$route.params.featuresAndLocation || ''}`);
         })
       ];
 
-      if (contrib) {
+      if (contrib && contrib[1] !== 'same') {
         this.lastUpdate = new Date(contrib[2] * 1000);
       }
       else {
@@ -321,6 +368,7 @@ export default {
               this.lastUpdate = new Date(match[1]);
             }
           })
+          .catch(() => {})
         );
       }
 
@@ -387,8 +435,5 @@ export default {
 }
 .overflowwrap-anywhere {
   overflow-wrap: anywhere;
-}
->>>.alert-link {
-  color: white;
 }
 </style>

@@ -9,11 +9,23 @@
   "coordinates": "Coordenadas",
   "menu": "Menú",
   "missing_shop": "Avisar de un sitio por editar",
+  "missing_shop_dialog": {
+    "description": "«{brand}» pretende mostrar solo lugares que tienen permitido abrir durante el confinamiento. Hay varias razones posibles si algunos faltan:",
+    "add_osm": "El lugar no está en OpenStreetMap. Añádelo:",
+    "add_osm_cta": "Sigue la guía",
+    "add_category": "Falta una categoría de lugares:",
+    "add_category_cta": "Solicitar adición"
+  },
   "change_lang": "Cambiar el idioma",
   "zoomtosee": " Acercar para mostrar sitios abiertos",
+  "filter_noresults": "No se han encontrado resultados. Intentelo alejando el mapa",
   "toggle_color": {
     "blind": "Activar modo daltónico",
     "normal": "Desactivar modo daltónico"
+  },
+  "services": {
+    "delivery": "Entrega",
+    "takeaway": "Para llevar"
   },
   "learnmore": {
     "about": "Acerca de",
@@ -74,7 +86,7 @@
       },
       "delivery": "Este sitio ofrece reparto",
       "takeaway": "Este sitio permite comprar para llevar",
-      "access": "El público puede entrar o permanecer dentro de este lugar",
+      "access": "Este sitio ofrece recepción física",
       "drive_through": "Este sitio dispone de servicio al coche",
       "details": "Agregar detalles necesarios durante el Estado de Alarma",
       "details_error": "Debe estar vacío o tener al menos 10 caracteres de longitud."
@@ -86,11 +98,14 @@
     "signal_warning": "Estabas escribiendo un informe. No se guardará. ¿Quieres continuar?",
     "signal": "Avisar de un cambio",
     "signal_done": "Su informe ha sido registrado. ¡Gracias! Tenga paciencia, puede llevar un tiempo procesarlo.",
-    "containment_opening_hours": "Horario de apertura en periodo normal",
-    "containment_brand_hours": "Horas de apertura en la página web de la marca",
+    "lockdown_opening_hours": "Horas de apertura",
+    "normal_opening_hours": "Horario de apertura en periodo normal",
+    "lockdown_brand_hours": "Horas de apertura en la página web de la marca",
     "facebook": "Página de Facebook",
-    "not_accessible": "Espacio interior no accesible al público",
+    "not_accessible": "No hay recepción física",
     "capacity": "Capacidad máxima: 0 personas | Capacidad máxima: 1 persona | Capacidad máxima: {count} personas",
+    "services": "Servicios",
+    "contact": "Contacto",
     "last_update": {
       "date": "Última actualización: {date}",
       "recent": "Actualizado hace unos minutos, la información podría haber cambiado"
@@ -110,13 +125,19 @@
       "unknown": "Sitio con permiso para abrir durante el Estado de Alarma. ¿Abierto o cerrado? Haznos saber",
       "closed": "Sitio cerrado durante el Estado de Alarma"
     },
+    "state_short": {
+      "open": "Abierto durante el Estado de Alarma",
+      "open_adapted": "Abierto durante el Estado de Alarma",
+      "partial": "Potencialmente abierto",
+      "unknown": "Potencialmente abierto",
+      "closed": "Cerrado durante el Estado de Alarma"
+    },
     "delivery": {
       "yes": "Servicio de reparto disponible",
       "only": "Solo por reparto"
     },
     "takeaway": {
       "yes": "Venta para llevar disponible",
-      "modified": "Modificado a ventas para llevar",
       "only": "Solo venta para llevar"
     },
     "drive_through": {
@@ -133,6 +154,18 @@
       "drinks": "Bebidas",
       "water": "Agua",
       "sweets": "Dulces"
+    },
+    "hygiene": "Higiene",
+    "hydroalcoholic_gel": "Gel hidroalcohólico",
+    "mask": "Mascarillas",
+    "hygiene_status": {
+      "yes": "El {date} disponible",
+      "no": "El {date}: indisponible",
+      "void": "No hay información, haznos saber"
+    },
+    "hygiene_entry": {
+      "has": "tiene",
+      "hasnot": "no tiene"
     }
   },
   "opening_hours_editor": {
@@ -168,6 +201,7 @@
     "insurance": "Aseguradoras",
     "tourism_info": "Información turística",
     "hotel": "Alojamiento",
+    "recycling_centre": "Punto limpio",
     "health": "Salud",
     "pharmacy": "Farmacias",
     "covid19_centre": "Centro de consultas sobre Covid-19",
@@ -215,13 +249,21 @@
     "agrarian": "Productos agrícolas",
     "flower": "Jardines/flores",
     "chemist": "Droguerías",
-    "fabric": "Tiendas textil",
+    "sewing": "Mercerías",
+    "shoes": "Zapaterías",
     "books": "Librerías",
+    "beauty": "Tienda de cosmética",
+    "clothes": "Ropa",
+    "gift": "Tienda de regalos",
+    "hairdresser": "Peluquería",
+    "jewelry": "Joyería",
+    "toys": "Juguetería",
     "mobility": "Movilidad",
     "fuel": "Gasolineras",
     "car_rental": "Alquiler de coches",
     "bicycle": "Tiendas de bicicletas",
     "car": "Talleres automóvil",
+    "car_dealer": "Concesionario de coches",
     "bicycle_tube": "Máquinas expendedoras de cámaras para bicicleta",
     "public_transport_tickets": "Máquinas expendedoras de billetes de transporte público"
   },

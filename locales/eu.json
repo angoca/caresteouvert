@@ -1,6 +1,6 @@
 {
   "lang": "Euskera",
-  "loading": "Kargatzen, mesedez itxaron...",
+  "loading": "Kargatzen, itxaron mesedez...",
   "covid19-alert": "Jarrai itzazu gobernuaren murrizketak. Errespontsabilitatea ZUREA da.",
   "title": "Irekita jarraitzen du",
   "subtitle": "Itxialdi garaian irekita jarraitzen duten lekuak",
@@ -9,11 +9,23 @@
   "coordinates": "Koordenatuak",
   "menu": "Menua",
   "missing_shop": "Falta den denda baten berri eman",
+  "missing_shop_dialog": {
+    "description": "« {brand} » itxialdi garaian irekitzaeko baimena duten lekuak erakusteko asmoa du. Leku batzuk falta badira arrazoi desberdinengatik izan daiteke:",
+    "add_osm": "Lekua ez dago OpenStreetMapen, gehitu:",
+    "add_osm_cta": "Gida jarraitu",
+    "add_category": "Lekuen kategoria falta da:",
+    "add_category_cta": "Gehitzea eskatu"
+  },
   "change_lang": "Hizkuntza aldatu",
   "zoomtosee": "Gerturatu irekita dauden lekuak ikusteko",
+  "filter_noresults": "Ez da emaitzarik aurkitu. Saiatu zoom egiten.",
   "toggle_color": {
-    "blind": "Daltonikoentzar modua",
+    "blind": "Daltonikoentzat modua",
     "normal": "Daltonikoentzat modua kendu"
+  },
+  "services": {
+    "delivery": "Banaketa",
+    "takeaway": "Eramateko"
   },
   "learnmore": {
     "about": "Honi buruz",
@@ -74,7 +86,7 @@
       },
       "delivery": "Leku honek bidalketa eskaintzen du",
       "takeaway": "Leku honek eramateko erosketa eskaintzen du",
-      "access": "Publikoa leku honetan sartu edo barruan geratu daiteke",
+      "access": "Leku honek rezepzioa du bertan",
       "drive_through": "Leku honek autotik jasotzeko zerbitzua du",
       "details": "Aukerazkoa: Itxialdiran beharrezkoak diren xehetasunak gehitu",
       "details_error": "Hutsa edo gutxienez 10 karaktere"
@@ -86,11 +98,14 @@
     "signal_warning": "Txosten bat idazten ari zara. Ez da gordeko. Jarraitu nahi al duzu?",
     "signal": "Aldaketa baten berri eman",
     "signal_done": "Zure aldaketa erregistratu da. Eskerrik asko! Mesedez izan pazientzia, prozesatzeko denbora behar du.",
-    "containment_opening_hours": "Itxialdi garai kanpoko egutegia",
-    "containment_brand_hours": "Irekiera orduak begiratu",
+    "lockdown_opening_hours": "Irekiera orduak",
+    "normal_opening_hours": "Itxialdi garai kanpoko egutegia",
+    "lockdown_brand_hours": "Irekiera orduak begiratu",
     "facebook": "Facebook orria",
-    "not_accessible": "Barrukaldea publikoari itxita dago",
+    "not_accessible": "Leku honek ez du rezepziorik",
     "capacity": "Edukiera maximoa: 0 pertsona | Edukiera maximoa: pertsona 1 | Edukiera maximoa: {count} pertsona",
+    "services": "Zerbitzuak",
+    "contact": "Kontaktua",
     "last_update": {
       "date": "Azken eguneraketa: {date}",
       "recent": "Duela minutu gutxi batzuk eguneratuta, beheko informazioa aldatu ahal izan da"
@@ -110,13 +125,19 @@
       "unknown": "Leku honek itxialdi garaian irekitzeko baimena du, baina irekita al itxita al dago? Esaiguzu",
       "closed": "Itxialdi garaian itxita dagoen lekua"
     },
+    "state_short": {
+      "open": "Itxialdi garaian irekita",
+      "open_adapted": "Itxialdi garaian irekita",
+      "partial": "Potentzialki irekita",
+      "unknown": "Potentzialki irekita",
+      "closed": "Itxialdi garaian itxita"
+    },
     "delivery": {
       "yes": "Banaketa zerbitzua eskuragarri",
       "only": "Bidalketa bakarrik"
     },
     "takeaway": {
       "yes": "Eramateko salmenta eskuragarri",
-      "modified": "Moldatutako eramateko salmenta",
       "only": "Eramateko salmenta bakarrik"
     },
     "drive_through": {
@@ -133,6 +154,18 @@
       "drinks": "Edariak",
       "water": "Ura",
       "sweets": "Goxokiak"
+    },
+    "hygiene": "Higienea",
+    "hydroalcoholic_gel": "Gel hidroalkoholikoa",
+    "mask": "Maskara",
+    "hygiene_status": {
+      "yes": "{date} datan: eskuragarri",
+      "no": "{date} datan: ez eskuragarri",
+      "void": "Ez dago informaziorik, kontaiguzu"
+    },
+    "hygiene_entry": {
+      "has": "Dauka",
+      "hasnot": "Ez dauka"
     }
   },
   "opening_hours_editor": {
@@ -168,6 +201,7 @@
     "insurance": "Asegurua",
     "tourism_info": "Informazio turistikoa",
     "hotel": "Ostalaritza",
+    "recycling_centre": "Birziklapen zentroa",
     "health": "Osasuna",
     "pharmacy": "Farmazia",
     "covid19_centre": "Covid-19 buruzko kontsulta zentrua",
@@ -215,13 +249,21 @@
     "agrarian": "Nekazaritzako produktuak",
     "flower": "Lorategi / loreak",
     "chemist": "Kimikaria",
-    "fabric": "Lantokia",
+    "sewing": "Mertzeria",
+    "shoes": "Zapatak",
     "books": "Liburudenda",
+    "beauty": "Edertasun denda",
+    "clothes": "Arropak",
+    "gift": "Opari denda",
+    "hairdresser": "Ileapaindegia",
+    "jewelry": "Bitxiak",
+    "toys": "Jostailu denda",
     "mobility": "Mugikortasuna",
     "fuel": "Gasolindegia",
     "car_rental": "Ibilgailu alokairua",
     "bicycle": "Bizikleta denda",
     "car": "Garagea",
+    "car_dealer": "Auto saltzailea",
     "bicycle_tube": "Bizikleta kamerak saltzeko makina",
     "public_transport_tickets": "Garraio publiko txartel makina"
   },

@@ -9,11 +9,23 @@
   "coordinates": "座標",
   "menu": "メニュー",
   "missing_shop": "不明な店舗をレポート",
+  "missing_shop_dialog": {
+    "description": "« {brand} » は封鎖期間中の営業が許可されている施設だけを表示することを意図しています。漏れがある場合、いくつかの理由が考えられます:",
+    "add_osm": "この施設はOpenStreetMapに無いので追加します:",
+    "add_osm_cta": "案内に従ってください",
+    "add_category": "施設のカテゴリがありません:",
+    "add_category_cta": "リクエストの追加"
+  },
   "change_lang": "言語切替",
   "zoomtosee": "ズームインして開店中の場所を表示",
+  "filter_noresults": "データが見つかりません。ズームアウトしてみてください。",
   "toggle_color": {
     "blind": "カラーバリアフリーモードを有効化",
     "normal": "カラーバリアフリーモードを無効化"
+  },
+  "services": {
+    "delivery": "配達",
+    "takeaway": "持ち帰り"
   },
   "learnmore": {
     "about": "説明",
@@ -74,7 +86,7 @@
       },
       "delivery": "この場所では配達があります",
       "takeaway": "この場所では持ち帰りができます",
-      "access": "お客はこの場所の中に入ったり滞在できます",
+      "access": "この施設は現地に物理的な受付場所があります",
       "drive_through": "この場所にはドライブスルーのサービスがあります",
       "details": "オプション : 封鎖の間に必要な詳細を追加します",
       "details_error": "空にするか、最低10文字以上入力します"
@@ -86,11 +98,14 @@
     "signal_warning": "レポートを書きかけですが保存されません。このまま続けますか？",
     "signal": "変更をレポート",
     "signal_done": "レポートは登録されました。ありがとうございます！少し経ってから表示されるでしょう。",
-    "containment_opening_hours": "封鎖期間外の通常営業時間",
-    "containment_brand_hours": "営業時間をよく見てください",
+    "lockdown_opening_hours": "営業時間",
+    "normal_opening_hours": "封鎖期間外の通常営業時間",
+    "lockdown_brand_hours": "営業時間をよく見てください",
     "facebook": "Facebookページ",
-    "not_accessible": "お客が入れない屋内スペース",
+    "not_accessible": "現地に物理的な受付場所はありません",
     "capacity": "定員 : 0 人 | 定員 : 1 人 | 定員 : {count} 人",
+    "services": "サービス",
+    "contact": "連絡先",
     "last_update": {
       "date": "最終更新: {date}",
       "recent": "数分前に更新されました。下記の情報は変更されているかもしれません"
@@ -110,13 +125,19 @@
       "unknown": "この場所は封鎖期間中に営業を許可されているかもしれません。開店しているか、閉店しているかを教えて下さい。",
       "closed": "封鎖中に閉店している場所"
     },
+    "state_short": {
+      "open": "封鎖中に開店",
+      "open_adapted": "封鎖中に開店",
+      "partial": "開店の可能性あり",
+      "unknown": "開店の可能性あり",
+      "closed": "封鎖中に閉店"
+    },
     "delivery": {
       "yes": "配達サービスが利用可",
       "only": "配達のみ"
     },
     "takeaway": {
       "yes": "持ち帰り販売が利用可",
-      "modified": "変更された持ち帰り販売",
       "only": "持ち帰り販売のみ"
     },
     "drive_through": {
@@ -133,6 +154,18 @@
       "drinks": "飲料",
       "water": "水",
       "sweets": "お菓子"
+    },
+    "hygiene": "衛生用品",
+    "hydroalcoholic_gel": "アルコール除菌ジェル",
+    "mask": "マスク",
+    "hygiene_status": {
+      "yes": "{date} : 利用可",
+      "no": "{date} : 利用不可",
+      "void": "情報なし。知っていたら教えて下さい"
+    },
+    "hygiene_entry": {
+      "has": "あり",
+      "hasnot": "なし"
     }
   },
   "opening_hours_editor": {
@@ -168,6 +201,7 @@
     "insurance": "保険",
     "tourism_info": "観光案内所",
     "hotel": "宿泊",
+    "recycling_centre": "リサイクルセンター",
     "health": "健康",
     "pharmacy": "薬局",
     "covid19_centre": "Covid-19 相談センター",
@@ -215,13 +249,21 @@
     "agrarian": "農業用品店",
     "flower": "園芸用品店",
     "chemist": "化粧品店",
-    "fabric": "生地店",
+    "sewing": "裁縫",
+    "shoes": "靴",
     "books": "書店",
+    "beauty": "美容サービス",
+    "clothes": "衣料品店",
+    "gift": "ギフト店",
+    "hairdresser": "理美容院",
+    "jewelry": "宝石店",
+    "toys": "おもちゃ屋",
     "mobility": "モビリティ",
     "fuel": "ガソリンスタンド",
     "car_rental": "レンタカー",
     "bicycle": "自転車店",
     "car": "ガレージ",
+    "car_dealer": "自動車販売店",
     "bicycle_tube": "自転車チューブ自販機",
     "public_transport_tickets": "公共交通券売機"
   },

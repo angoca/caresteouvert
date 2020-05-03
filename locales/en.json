@@ -9,6 +9,13 @@
   "coordinates": "Coordinates",
   "menu": "Menu",
   "missing_shop": "Report a missing shop",
+  "missing_shop_dialog": {
+    "description": "« {brand} » is intended to display only places that are allowed to open during the lockdown. There are several possible reasons if some are missing:",
+    "add_osm": "The place is not in OpenStreetMap, add it:",
+    "add_osm_cta": "Follow the guide",
+    "add_category": "A category of places is missing:",
+    "add_category_cta": "Request addition"
+  },
   "change_lang": "Change the language",
   "zoomtosee": "Zoom in to display opened places",
   "filter_noresults": "No results found. Try zooming out.",
@@ -91,11 +98,14 @@
     "signal_warning": "You were writing a report. It'll not be saved. Do you want to continue?",
     "signal": "Report a change",
     "signal_done": "Your report has been registered, thank you! It'll appear in a while.",
-    "containment_opening_hours": "Opening hours outside the lockdown period",
-    "containment_brand_hours": "Look at the opening hours",
+    "lockdown_opening_hours": "Opening hours",
+    "normal_opening_hours": "Opening hours outside the lockdown period",
+    "lockdown_brand_hours": "Look at the opening hours",
     "facebook": "Facebook page",
     "not_accessible": "No physical reception on site",
     "capacity": "Maximal capacity : 0 persons | Maximal capacity : 1 person | Maximal capacity : {count} persons",
+    "services": "Services",
+    "contact": "Contact",
     "last_update": {
       "date": "Last update: {date}",
       "recent": "Updated a few minutes ago, information below may have changed"
@@ -128,12 +138,15 @@
     },
     "takeaway": {
       "yes": "Take-away sale available",
-      "modified": "Modified take-away sale",
       "only": "Take-away sale only"
     },
     "drive_through": {
       "yes": "Drive-through service available",
       "only": "Only by drive-through"
+    },
+    "wheelchair": {
+      "yes": "Accessible in wheelchair",
+      "limited": "Partial access in wheelchair"
     },
     "vending": {
       "pizza": "Pizza",
@@ -145,6 +158,18 @@
       "drinks": "Drinks",
       "water": "Water",
       "sweets": "Sweets"
+    },
+    "hygiene": "Hygiene",
+    "hydroalcoholic_gel": "Hydroalcoolique gel",
+    "mask": "Mask",
+    "hygiene_status": {
+      "yes": "On {date} : available",
+      "no": "On {date} : unavailable",
+      "void": "No information, let us know"
+    },
+    "hygiene_entry": {
+      "has": "has",
+      "hasnot": "has no"
     }
   },
   "opening_hours_editor": {
@@ -180,6 +205,7 @@
     "insurance": "Insurance",
     "tourism_info": "Tourism information",
     "hotel": "Hosting",
+    "recycling_centre": "Recycling centre",
     "health": "Health",
     "pharmacy": "Pharmacy",
     "covid19_centre": "Covid-19 consultation centre",
@@ -227,13 +253,21 @@
     "agrarian": "Agricultural products",
     "flower": "Garden / flower",
     "chemist": "Chemist",
-    "fabric": "Fabric",
+    "sewing": "Sewing",
+    "shoes": "Shoes",
     "books": "Book store",
+    "beauty": "Beauty store",
+    "clothes": "Clothes",
+    "gift": "Gift shop",
+    "hairdresser": "Hairdresser",
+    "jewelry": "Jewelry",
+    "toys": "Toy store",
     "mobility": "Mobility",
     "fuel": "Fuel station",
     "car_rental": "Car rental",
     "bicycle": "Bicycle shop",
     "car": "Garage",
+    "car_dealer": "Car dealer",
     "bicycle_tube": "Bicycle tube vending machine",
     "public_transport_tickets": "Public transport ticket machine"
   },

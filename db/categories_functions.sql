@@ -7,9 +7,9 @@
 -- Function for getting normalized category from OSM tags
 CREATE OR REPLACE FUNCTION get_category(tags HSTORE, area VARCHAR) RETURNS VARCHAR AS $$
 BEGIN
-	IF (tags->'amenity' = 'vending_machine' AND tags->'vending' IN ('stamps', 'parcel_mail_in', 'parcel_pickup', 'parcel_pickup;parcel_mail_in')) OR (tags->'amenity' = 'childcare' AND area LIKE 'FR%') OR (tags->'amenity' = 'kindergarten' AND tags->'kindergarten:FR' != '' AND area LIKE 'FR%') OR (tags->'shop' = 'money_lender' AND area NOT LIKE 'FR%') OR (tags->'tourism' = 'information' AND tags->'information' = 'office' AND tags->'opening_hours:covid19' != '') OR (tags->'tourism' = 'information' AND tags->'information' = 'office' AND tags->'opening_hours:covid19' != '') OR (tags->'tourism' IN ('hotel', 'motel', 'hostel') AND area SIMILAR TO '(FR|AT|DE|CH)%') OR (tags->'amenity' IN ('police', 'townhall', 'post_office', 'bank')) OR (tags->'office' IN ('employment_agency', 'insurance')) OR (tags->'shop' = 'funeral_directors') THEN
+	IF (tags->'amenity' = 'vending_machine' AND tags->'vending' IN ('stamps', 'parcel_mail_in', 'parcel_pickup', 'parcel_pickup;parcel_mail_in')) OR (tags->'amenity' = 'childcare' AND area LIKE 'FR%') OR (tags->'amenity' = 'kindergarten' AND tags->'kindergarten:FR' != '' AND area LIKE 'FR%') OR (tags->'shop' = 'money_lender' AND area NOT SIMILAR TO '(FR|MC)%') OR (tags->'tourism' = 'information' AND tags->'information' = 'office' AND tags->'opening_hours:covid19' != '') OR (tags->'tourism' = 'information' AND tags->'information' = 'office' AND tags->'opening_hours:covid19' != '') OR (tags->'tourism' IN ('hotel', 'motel', 'hostel') AND area SIMILAR TO '(FR|AT|DE|CH)%') OR (tags->'amenity' = 'recycling' AND tags->'recycling_type' = 'centre' AND area LIKE 'FR%') OR (tags->'amenity' IN ('police', 'townhall', 'post_office', 'bank')) OR (tags->'office' IN ('employment_agency', 'insurance')) OR (tags->'shop' = 'funeral_directors') THEN
 		RETURN 'amenity';
-	ELSIF (tags->'healthcare' = 'centre' AND tags->'healthcare:speciality' = 'covid19' AND area LIKE 'FR%') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'condoms') OR (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation') AND tags->'opening_hours:covid19' != '') OR (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' = 'pharmacy') OR (tags->'shop' IN ('optician', 'hearing_aids', 'medical_supply')) OR (tags->'craft' = 'optician') THEN
+	ELSIF (tags->'healthcare' = 'centre' AND tags->'healthcare:speciality' = 'covid19' AND area LIKE 'FR%') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'condoms') OR (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation', 'laboratory') AND tags->'opening_hours:covid19' != '') OR (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation', 'laboratory') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors') AND tags->'opening_hours:covid19' != '') OR (tags->'amenity' = 'pharmacy') OR (tags->'shop' IN ('optician', 'hearing_aids', 'medical_supply')) OR (tags->'craft' = 'optician') THEN
 		RETURN 'health';
 	ELSIF (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'milk') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'bread') OR (tags->'shop' IN ('frozen_food', 'supermarket', 'butcher', 'cheese', 'convenience', 'seafood', 'greengrocer', 'deli', 'spices', 'honey', 'health_food', 'pasta', 'cannery', 'chocolate', 'tea', 'coffee', 'dairy', 'confectionery', 'farm', 'bakery', 'pastry')) OR (tags->'amenity' = 'marketplace') THEN
 		RETURN 'food';
@@ -17,11 +17,9 @@ BEGIN
 		RETURN 'eat';
 	ELSIF (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'cigarettes') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'e-cigarettes') OR (tags->'shop' IN ('tobacco', 'newsagent;tobacco', 'tobacco;newsagent', 'e-cigarette', 'alcohol', 'beverages', 'wine')) OR (tags->'tobacco' IN ('yes', 'only')) THEN
 		RETURN 'drugs';
-	ELSIF (tags->'shop' = 'stationery' AND area LIKE 'FR%') OR (tags->'shop' = 'agrarian' AND area LIKE 'FR%') OR (tags->'shop' = 'chemist' AND area NOT SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'fabric' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'books' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'books' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'amenity' = 'public_bookcase' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' IN ('doityourself', 'hardware', 'paint', 'glaziery', 'mobile_phone', 'computer', 'electronics', 'dry_cleaning', 'laundry', 'kiosk', 'newsagent', 'pet', 'garden_centre', 'florist')) OR (tags->'craft' = 'electronics_repair') THEN
+	ELSIF (tags->'shop' = 'stationery' AND area LIKE 'FR%') OR (tags->'shop' = 'agrarian' AND area LIKE 'FR%') OR (tags->'shop' = 'shoes' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'books' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'books' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'amenity' = 'public_bookcase' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'beauty' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'clothes' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'gift' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'hairdresser' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'jewelry' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' = 'toys' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'shop' IN ('doityourself', 'hardware', 'paint', 'glaziery', 'mobile_phone', 'computer', 'electronics', 'dry_cleaning', 'laundry', 'kiosk', 'newsagent', 'pet', 'garden_centre', 'florist', 'chemist', 'fabric', 'sewing', 'haberdashery')) OR (tags->'craft' IN ('electronics_repair', 'sewing')) THEN
 		RETURN 'shop';
-	ELSIF tags->'shop' = 'chemist' AND area SIMILAR TO '(DE|AT|CH)%' THEN
-		RETURN 'chemist';
-	ELSIF (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'bicycle_tube') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'public_transport_tickets') OR (tags->'amenity' IN ('fuel', 'car_rental')) OR (tags->'shop' IN ('gas', 'bicycle', 'car_parts', 'car_repair')) THEN
+	ELSIF (tags->'shop' = 'car' AND area SIMILAR TO '(DE|AT|CH)%') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'bicycle_tube') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'public_transport_tickets') OR (tags->'amenity' IN ('fuel', 'car_rental')) OR (tags->'shop' IN ('gas', 'bicycle', 'car_parts', 'car_repair')) THEN
 		RETURN 'mobility';
 	ELSIF tags->'opening_hours:covid19' != '' THEN
 		RETURN 'other';
@@ -57,6 +55,8 @@ BEGIN
 		RETURN 'tourism_info';
 	ELSIF tags->'tourism' IN ('hotel', 'motel', 'hostel') THEN
 		RETURN 'hotel';
+	ELSIF tags->'amenity' = 'recycling' AND tags->'recycling_type' = 'centre' THEN
+		RETURN 'recycling_centre';
 	ELSIF tags->'amenity' = 'pharmacy' THEN
 		RETURN 'pharmacy';
 	ELSIF tags->'healthcare' = 'centre' AND tags->'healthcare:speciality' = 'covid19' THEN
@@ -69,7 +69,7 @@ BEGIN
 		RETURN 'condoms';
 	ELSIF tags->'shop' = 'medical_supply' THEN
 		RETURN 'medical_supply';
-	ELSIF (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation')) OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors')) THEN
+	ELSIF (tags->'healthcare' IN ('centre', 'clinic', 'doctor', 'hospital', 'rehabilitation', 'laboratory')) OR (tags->'amenity' IN ('hospital', 'clinic', 'doctors')) THEN
 		RETURN 'health_center';
 	ELSIF tags->'shop' IN ('frozen_food', 'supermarket') THEN
 		RETURN 'supermarket';
@@ -141,10 +141,24 @@ BEGIN
 		RETURN 'flower';
 	ELSIF tags->'shop' = 'chemist' THEN
 		RETURN 'chemist';
-	ELSIF tags->'shop' = 'fabric' THEN
-		RETURN 'fabric';
+	ELSIF (tags->'shop' IN ('fabric', 'sewing', 'haberdashery')) OR (tags->'craft' = 'sewing') THEN
+		RETURN 'sewing';
+	ELSIF tags->'shop' = 'shoes' THEN
+		RETURN 'shoes';
 	ELSIF (tags->'shop' = 'books') OR (tags->'amenity' = 'vending_machine' AND tags->'vending' = 'books') OR (tags->'amenity' = 'public_bookcase') THEN
 		RETURN 'books';
+	ELSIF tags->'shop' = 'beauty' THEN
+		RETURN 'beauty';
+	ELSIF tags->'shop' = 'clothes' THEN
+		RETURN 'clothes';
+	ELSIF tags->'shop' = 'gift' THEN
+		RETURN 'gift';
+	ELSIF tags->'shop' = 'hairdresser' THEN
+		RETURN 'hairdresser';
+	ELSIF tags->'shop' = 'jewelry' THEN
+		RETURN 'jewelry';
+	ELSIF tags->'shop' = 'toys' THEN
+		RETURN 'toys';
 	ELSIF (tags->'amenity' = 'fuel') OR (tags->'shop' = 'gas') THEN
 		RETURN 'fuel';
 	ELSIF tags->'amenity' = 'car_rental' THEN
@@ -153,6 +167,8 @@ BEGIN
 		RETURN 'bicycle';
 	ELSIF tags->'shop' IN ('car_parts', 'car_repair') THEN
 		RETURN 'car';
+	ELSIF tags->'shop' = 'car' THEN
+		RETURN 'car_dealer';
 	ELSIF tags->'amenity' = 'vending_machine' AND tags->'vending' = 'bicycle_tube' THEN
 		RETURN 'bicycle_tube';
 	ELSIF tags->'amenity' = 'vending_machine' AND tags->'vending' = 'public_transport_tickets' THEN
